@@ -1,0 +1,165 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Track {
+  track_id: ID!
+}
+
+type InvoiceLine {
+  """Invoice Line ID"""
+  invoice_line_id: ID!
+
+  """Invoice ID"""
+  invoice_id: Int!
+
+  """Track ID"""
+  track_id: Int!
+
+  """Unit Price"""
+  unit_price: Float!
+
+  """Quantity"""
+  quantity: Int!
+  track: Track!
+}
+
+type Customer {
+  customer_id: ID!
+}
+
+type Invoice {
+  """Invoice ID"""
+  invoice_id: ID!
+
+  """Customer ID"""
+  customer_id: Int!
+
+  """Invoice Date"""
+  invoice_date: DateTime!
+
+  """Billing Address"""
+  billing_address: String!
+
+  """Billing City"""
+  billing_city: String!
+
+  """Billing State"""
+  billing_state: String!
+
+  """Billing City"""
+  billing_country: String!
+
+  """Billing City"""
+  billing_postal_code: String!
+
+  """Invoice Total"""
+  total: Float!
+  invoiceLines: [InvoiceLine!]!
+  customer: Customer!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  invoices: [Invoice!]!
+  invoice(invoice_id: Int!): Invoice!
+  invoiceLines: [InvoiceLine!]!
+  invoiceLine(invoice_line_id: Int!): InvoiceLine!
+}
+
+type Mutation {
+  createInvoice(createInvoiceInput: CreateInvoiceInput!): Invoice!
+  updateInvoice(updateInvoiceInput: UpdateInvoiceInput!): Invoice!
+  removeInvoice(invoice_id: Int!): Invoice!
+  createInvoiceLine(createInvoiceLineInput: CreateInvoiceLineInput!): InvoiceLine!
+  updateInvoiceLine(updateInvoiceLineInput: UpdateInvoiceLineInput!): InvoiceLine!
+  removeInvoiceLine(invoice_line_id: Int!): InvoiceLine!
+}
+
+input CreateInvoiceInput {
+  """Customer ID"""
+  customer_id: Int!
+
+  """Invoice Date"""
+  invoice_date: DateTime!
+
+  """Billing Address"""
+  billing_address: String!
+
+  """Billing City"""
+  billing_city: String!
+
+  """Billing State"""
+  billing_state: String!
+
+  """Billing City"""
+  billing_country: String!
+
+  """Billing City"""
+  billing_postal_code: String!
+
+  """Invoice Total"""
+  total: Float!
+}
+
+input UpdateInvoiceInput {
+  """Customer ID"""
+  customer_id: Int
+
+  """Invoice Date"""
+  invoice_date: DateTime!
+
+  """Billing Address"""
+  billing_address: String!
+
+  """Billing City"""
+  billing_city: String!
+
+  """Billing State"""
+  billing_state: String!
+
+  """Billing City"""
+  billing_country: String!
+
+  """Billing City"""
+  billing_postal_code: String!
+
+  """Invoice Total"""
+  total: Float!
+  invoice_id: ID!
+}
+
+input CreateInvoiceLineInput {
+  """Invoice ID"""
+  invoice_id: Int!
+
+  """Track ID"""
+  track_id: Int!
+
+  """Unit Price"""
+  unit_price: Float!
+
+  """Quantity"""
+  quantity: Int!
+}
+
+input UpdateInvoiceLineInput {
+  """Invoice ID"""
+  invoice_id: Int
+
+  """Track ID"""
+  track_id: Int
+
+  """Unit Price"""
+  unit_price: Float!
+
+  """Quantity"""
+  quantity: Int!
+
+  """Invoice Line ID"""
+  invoice_line_id: ID!
+}

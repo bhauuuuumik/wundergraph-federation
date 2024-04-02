@@ -1,0 +1,88 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:16.2-alpine3.19
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=merkle@321
+    expose:
+      - "5433"
+    ports:
+      - '5433:5433'
+    command: -p 5433
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./Chinook_PostgreSql_AutoIncrementPKs.sql:/docker-entrypoint-initdb.d/Chinook_PostgreSql_AutoIncrementPKs.sql
+  accounts:
+    build: ./services/album-app
+    image: album-app
+    container_name: album-app
+    ports:
+      - '4001:4001'
+    links:
+      - postgres
+    depends_on: 
+      - postgres
+    environment:
+      - DB_HOST
+      - DB_PORT
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_NAME
+      - IGNORE_ENV_FILE
+  reviews:
+    build: ./services/customer-app
+    image: customer-app
+    container_name: customer-app
+    ports:
+      - '4002:4002'
+    links:
+      - postgres
+    depends_on: 
+      - postgres
+    environment:
+      - DB_HOST
+      - DB_PORT
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_NAME
+      - IGNORE_ENV_FILE
+  products:
+    build: ./services/employee-app
+    image: employee-app
+    container_name: employee-app
+    ports:
+      - '4003:4003'
+    links:
+      - postgres
+    depends_on: 
+      - postgres
+    environment:
+      - DB_HOST
+      - DB_PORT
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_NAME
+      - IGNORE_ENV_FILE
+  inventory:
+    build: ./services/invoice-app
+    image: invoice-app
+    container_name: invoice-app
+    ports:
+      - '4004:4004'
+    links:
+      - postgres
+    depends_on: 
+      - postgres
+    environment:
+      - DB_HOST
+      - DB_PORT
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_NAME
+      - IGNORE_ENV_FILE
+volumes:
+  postgres:
+    driver: local

@@ -1,0 +1,200 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Artist {
+  artist_id: ID!
+  name: String!
+}
+
+type Genre {
+  """Genre ID"""
+  genre_id: ID!
+
+  """Genre Name"""
+  name: String!
+}
+
+type MediaType {
+  """MediaType ID"""
+  media_type_id: ID!
+
+  """MediaType Name"""
+  name: String!
+}
+
+type Track {
+  """Track ID"""
+  track_id: ID!
+
+  """Track Name"""
+  name: String!
+
+  """Album ID"""
+  album_id: Int!
+
+  """Media Type ID"""
+  media_type_id: Int!
+
+  """Genre ID"""
+  genre_id: Int!
+
+  """Composer"""
+  composer: String
+
+  """Track Duration in milliseconds"""
+  milliseconds: Int!
+
+  """Track Size in bytes"""
+  bytes: Int!
+
+  """Track Unit Price"""
+  unit_price: Float!
+  album: Album!
+  genre: Genre!
+  mediaType: Genre!
+}
+
+type Album {
+  album_id: ID!
+  title: String!
+  artist_id: Int!
+  tracks: [Track!]!
+  artist: Artist!
+}
+
+type Query {
+  albums: [Album!]!
+  album(album_id: Int!): Album!
+  tracks: [Track!]!
+  track(track_id: Int!): Track!
+  artists: [Artist!]!
+  artist(artist_id: Int!): Artist!
+  genres: [Genre!]!
+  genre(genre_id: Int!): Genre!
+  mediaTypes: [MediaType!]!
+  mediaType(media_type_id: Int!): MediaType!
+}
+
+type Mutation {
+  createAlbum(createAlbumInput: CreateAlbumInput!): Album!
+  updateAlbum(updateAlbumInput: UpdateAlbumInput!): Album!
+  removeAlbum(album_id: Int!): Album!
+  createTrack(createTrackInput: CreateTrackInput!): Track!
+  updateTrack(updateTrackInput: UpdateTrackInput!): Track!
+  removeTrack(track_id: Int!): Track!
+  createArtist(createArtistInput: CreateArtistInput!): Artist!
+  updateArtist(updateArtistInput: UpdateArtistInput!): Artist!
+  removeArtist(artist_id: Int!): Artist!
+  createGenre(createGenreInput: CreateGenreInput!): Genre!
+  updateGenre(updateGenreInput: UpdateGenreInput!): Genre!
+  removeGenre(genre_id: Int!): Genre!
+  createMediaType(createMediaTypeInput: CreateMediaTypeInput!): MediaType!
+  updateMediaType(updateMediaTypeInput: UpdateMediaTypeInput!): MediaType!
+  removeMediaType(media_type_id: Int!): MediaType!
+}
+
+input CreateAlbumInput {
+  """Album Title"""
+  title: String!
+
+  """Artist ID"""
+  artist_id: Int!
+}
+
+input UpdateAlbumInput {
+  title: String!
+  artist_id: Int!
+  album_id: Int!
+}
+
+input CreateTrackInput {
+  """Track Name"""
+  name: String!
+
+  """Album ID"""
+  album_id: Int!
+
+  """Media Type ID"""
+  media_type_id: Int!
+
+  """Genre ID"""
+  genre_id: Int!
+
+  """Composer"""
+  composer: String!
+
+  """Track Duration in milliseconds"""
+  milliseconds: Int!
+
+  """Track Size in bytes"""
+  bytes: Int!
+
+  """Track Unit Price"""
+  unit_price: Float!
+}
+
+input UpdateTrackInput {
+  """Track Name"""
+  name: String!
+
+  """Album ID"""
+  album_id: Int
+
+  """Media Type ID"""
+  media_type_id: Int
+
+  """Genre ID"""
+  genre_id: Int
+
+  """Composer"""
+  composer: String!
+
+  """Track Duration in milliseconds"""
+  milliseconds: Int!
+
+  """Track Size in bytes"""
+  bytes: Int!
+
+  """Track Unit Price"""
+  unit_price: Float!
+
+  """Track Name"""
+  track_id: ID!
+}
+
+input CreateArtistInput {
+  """Artist Name"""
+  name: String!
+}
+
+input UpdateArtistInput {
+  name: String!
+  artist_id: Int!
+}
+
+input CreateGenreInput {
+  """Genre Name"""
+  name: String!
+}
+
+input UpdateGenreInput {
+  """Genre Name"""
+  name: String!
+
+  """Genre ID"""
+  genre_id: ID!
+}
+
+input CreateMediaTypeInput {
+  """MediaType Name"""
+  name: String!
+}
+
+input UpdateMediaTypeInput {
+  """MediaType Name"""
+  name: String!
+
+  """MediaType ID"""
+  media_type_id: ID!
+}

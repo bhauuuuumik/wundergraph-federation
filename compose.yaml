@@ -1,0 +1,18 @@
+version: 2
+subgraphs:
+  - name: Customer
+    routing_url: http://localhost:4002/customers
+    introspection:
+      url: http://localhost:4002/customers
+  - name: Employee
+    routing_url: http://localhost:4003/employees
+    introspection:
+      url: http://localhost:4003/employees
+  - name: Album
+    routing_url: http://localhost:4001/albums
+    introspection:
+      url: http://localhost:4001/albums
+  - name: Invoice
+    routing_url: http://localhost:4004/invoices
+    introspection:
+      url: http://localhost:4004/invoices

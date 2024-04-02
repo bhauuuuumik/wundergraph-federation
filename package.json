@@ -1,0 +1,33 @@
+{
+  "name": "wundergraph-apollo-federation",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run start:services && npm run wait-on:services && npm run build && run-p open:browser && npm run router",
+    "build:services": "docker-compose -f docker-compose.yml build",
+    "start:services": "docker-compose -f docker-compose.yml up -d",
+    "wait-on:services": "wait-on http://localhost:4001 http://localhost:4002 http://localhost:4003 http://localhost:4004",
+    "start:nextjs": "next dev",
+    "open:browser": "open-cli http://localhost:3002",
+    "build": "wgc router compose -i compose.yaml -o config.json",
+    "router": "./router",
+    "cleanup": "docker-compose -f docker-compose.yml down -v",
+    "check": "tsc --noEmit",
+    "install:album": "cd ./services/album-app && npm install",
+    "install:customer": "cd ./services/customer-app && npm install",
+    "install:employee": "cd ./services/employee-app && npm install",
+    "install:invoice": "cd ./services/invoice-app && npm install",
+    "install:local": "run-p install:album install:customer install:employee install:invoice",
+    "start:local:album": "cd ./services/album-app && npm run start:dev",
+    "start:local:customer": "cd ./services/customer-app && npm run start:dev",
+    "start:local:employee": "cd ./services/employee-app && npm run start:dev",
+    "start:local:invoice": "cd ./services/invoice-app && npm run start:dev",
+    "start:local": "run-p start:local:* wait-on:services open:browser router"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "open-cli": "^7.0.1",
+    "wait-on": "^6.0.1",
+    "npm-run-all": "^4.1.5"
+  }
+}
